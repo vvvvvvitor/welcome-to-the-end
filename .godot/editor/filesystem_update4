@@ -1,0 +1,15 @@
+res://node_3d.tscn
+res://data/ui/themes/ui_theme_game.tres
+res://data/ui/themes/ui_theme_menu.tres
+res://src/GameInfo.gd
+res://scenes/settings_window.tscn
+res://scenes/option.tscn
+res://scenes/rooms/level_1/room_3_way.tscn
+res://scenes/rooms/level_1/room_2_way.tscn
+res://scenes/rooms/level_1/room_1_way.tscn
+res://scenes/rooms/level_1/room_4_way.tscn
+res://scenes/camera_3d.tscn
+res://scenes/inventory.tscn
+res://scenes/flash_light.tscn
+res://scenes/character_body_3d.tscn
+res://scenes/ui.tscn

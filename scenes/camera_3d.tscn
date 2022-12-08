@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://cluewxnoh5id2"]
+
+[ext_resource type="Script" path="res://src/Camera3D.gd" id="1_b78fi"]
+
+[node name="Camera3D" type="Camera3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.735528, 0)
+top_level = true
+current = true
+script = ExtResource("1_b78fi")
+
+[node name="PickRay" type="RayCast3D" parent="."]
+target_position = Vector3(0, 0, -3)
+collision_mask = 4

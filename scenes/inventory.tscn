@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://blj2kci2j5vun"]
+
+[ext_resource type="Script" path="res://src/Inventory.gd" id="1_i0gnx"]
+[ext_resource type="Script" path="res://src/Items.gd" id="3_w21ij"]
+
+[node name="Inventory" type="Node"]
+script = ExtResource("1_i0gnx")
+
+[node name="Items" type="Node3D" parent="."]
+top_level = true
+script = ExtResource("3_w21ij")
+
+[node name="Offset" type="Node3D" parent="Items"]
+transform = Transform3D(0.980615, 0, 0.195946, 0, 1, 0, -0.195946, 0, 0.980615, 0.2, -0.5, -0.5)
+
+[node name="WallRay" type="RayCast3D" parent="Items"]
+target_position = Vector3(0, 0, -1)

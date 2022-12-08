@@ -1,0 +1,202 @@
+[gd_scene load_steps=11 format=3 uid="uid://bn66drd2voimx"]
+
+[ext_resource type="Theme" uid="uid://ds037nvx55ajc" path="res://data/ui/themes/ui_theme_game.tres" id="1_8gug3"]
+[ext_resource type="Theme" uid="uid://vj5thy38tam4" path="res://data/ui/themes/ui_theme_menu.tres" id="1_cdrt2"]
+[ext_resource type="Script" path="res://src/SettingsButton.gd" id="2_ofw53"]
+[ext_resource type="Script" path="res://src/QuitButton.gd" id="3_kgn4o"]
+[ext_resource type="PackedScene" uid="uid://br6qrkoy8ujae" path="res://scenes/inventory_ui.tscn" id="3_khgnn"]
+[ext_resource type="Script" path="res://src/game_ui.gd" id="4_1nklq"]
+[ext_resource type="Script" path="res://src/ResumeButton.gd" id="5_jk0fh"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6yc32"]
+bg_color = Color(0.635294, 0.0313726, 0, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+shadow_color = Color(0.635294, 0.0313726, 0, 1)
+shadow_size = 2
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_a4kx5"]
+bg_color = Color(0.267583, 0.604864, 1, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+shadow_color = Color(0.27451, 0.603922, 1, 0.521569)
+shadow_size = 2
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_spbur"]
+bg_color = Color(1, 1, 1, 0.27451)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(1, 1, 1, 0.505882)
+corner_radius_top_left = 1000
+corner_radius_top_right = 1000
+corner_radius_bottom_right = 1000
+corner_radius_bottom_left = 1000
+shadow_color = Color(0, 0, 0, 0.137255)
+shadow_size = 2
+anti_aliasing = false
+
+[node name="UI" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Game" type="ReferenceRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_8gug3")
+script = ExtResource("4_1nklq")
+
+[node name="TopBar" type="MarginContainer" parent="Game"]
+custom_minimum_size = Vector2(0, 150)
+anchors_preset = 10
+anchor_right = 1.0
+grow_horizontal = 2
+theme_override_constants/margin_left = 11
+theme_override_constants/margin_top = 11
+theme_override_constants/margin_right = 11
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Game/TopBar"]
+offset_left = 11.0
+offset_top = 11.0
+offset_right = 1141.0
+offset_bottom = 150.0
+
+[node name="Panel" type="Panel" parent="Game/TopBar/HBoxContainer"]
+custom_minimum_size = Vector2(200, 0)
+offset_left = 930.0
+offset_right = 1130.0
+offset_bottom = 139.0
+size_flags_horizontal = 10
+
+[node name="MarginContainer" type="MarginContainer" parent="Game/TopBar/HBoxContainer/Panel"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="Health" type="ProgressBar" parent="Game/TopBar/HBoxContainer/Panel/MarginContainer"]
+offset_left = 5.0
+offset_top = 5.0
+offset_right = 195.0
+offset_bottom = 134.0
+size_flags_vertical = 1
+theme_override_styles/fill = SubResource("StyleBoxFlat_6yc32")
+value = 100.0
+
+[node name="Stamina" type="ProgressBar" parent="Game/TopBar/HBoxContainer/Panel/MarginContainer"]
+offset_left = 5.0
+offset_top = 110.0
+offset_right = 195.0
+offset_bottom = 134.0
+size_flags_vertical = 8
+theme_override_styles/fill = SubResource("StyleBoxFlat_a4kx5")
+value = 100.0
+
+[node name="Inventory" parent="Game/TopBar" instance=ExtResource("3_khgnn")]
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 11.0
+offset_top = 11.0
+offset_right = 1141.0
+offset_bottom = 150.0
+
+[node name="Pointer" type="CenterContainer" parent="Game"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Cursor" type="MarginContainer" parent="Game/Pointer"]
+custom_minimum_size = Vector2(22, 22)
+offset_left = 565.0
+offset_top = 313.0
+offset_right = 587.0
+offset_bottom = 335.0
+
+[node name="Panel" type="Panel" parent="Game/Pointer/Cursor"]
+offset_right = 22.0
+offset_bottom = 22.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_spbur")
+
+[node name="Menu" type="ReferenceRect" parent="."]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_cdrt2")
+
+[node name="ColorRect" type="ColorRect" parent="Menu"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.25098)
+
+[node name="Panel" type="Panel" parent="Menu"]
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 40.0
+grow_horizontal = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Menu/Panel"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 3
+theme_override_constants/margin_top = 3
+theme_override_constants/margin_right = 3
+theme_override_constants/margin_bottom = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Menu/Panel/MarginContainer"]
+offset_left = 3.0
+offset_top = 3.0
+offset_right = 1149.0
+offset_bottom = 37.0
+
+[node name="ResumeButton" type="Button" parent="Menu/Panel/MarginContainer/HBoxContainer"]
+text = "Resume"
+script = ExtResource("5_jk0fh")
+
+[node name="SettingsButton" type="Button" parent="Menu/Panel/MarginContainer/HBoxContainer"]
+text = "Settings"
+script = ExtResource("2_ofw53")
+
+[node name="QuitButton" type="Button" parent="Menu/Panel/MarginContainer/HBoxContainer"]
+text = "Quit"
+script = ExtResource("3_kgn4o")
+
+[connection signal="pressed" from="Menu/Panel/MarginContainer/HBoxContainer/ResumeButton" to="Menu/Panel/MarginContainer/HBoxContainer/ResumeButton" method="_on_pressed"]
+[connection signal="pressed" from="Menu/Panel/MarginContainer/HBoxContainer/SettingsButton" to="Menu/Panel/MarginContainer/HBoxContainer/SettingsButton" method="_on_pressed"]
+[connection signal="pressed" from="Menu/Panel/MarginContainer/HBoxContainer/QuitButton" to="Menu/Panel/MarginContainer/HBoxContainer/QuitButton" method="_on_pressed"]

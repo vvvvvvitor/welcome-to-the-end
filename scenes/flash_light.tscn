@@ -1,0 +1,42 @@
+[gd_scene load_steps=7 format=3 uid="uid://ctlp20e53uro8"]
+
+[ext_resource type="Script" path="res://src/flash_light.gd" id="1_qxtx5"]
+[ext_resource type="PackedScene" uid="uid://ba47bkpfqlniu" path="res://data/models/items/flashlight.glb" id="2_1sv00"]
+[ext_resource type="Texture2D" uid="uid://d3m2qijm6ikvc" path="res://data/textures/flashlight_icon.png" id="2_vhkew"]
+
+[sub_resource type="Gradient" id="Gradient_i28v0"]
+offsets = PackedFloat32Array(0.475962, 0.557692, 0.634615, 1)
+colors = PackedColorArray(1, 1, 1, 1, 0.63648, 0.63648, 0.63648, 1, 1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_jabao"]
+gradient = SubResource("Gradient_i28v0")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_nvggm"]
+height = 0.4206
+radius = 0.059096
+
+[node name="FlashLight" type="RigidBody3D"]
+freeze = true
+script = ExtResource("1_qxtx5")
+picture = ExtResource("2_vhkew")
+
+[node name="PointLight" type="SpotLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.396595)
+light_projector = SubResource("GradientTexture2D_jabao")
+shadow_enabled = true
+shadow_reverse_cull_face = true
+spot_range = 15.2918
+spot_angle = 48.9229
+
+[node name="ToggleTimer" type="Timer" parent="."]
+wait_time = 0.2
+one_shot = true
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, -0.207278)
+shape = SubResource("CylinderShape3D_nvggm")
+
+[node name="flashlight" parent="." instance=ExtResource("2_1sv00")]
+transform = Transform3D(0.2, 0, 0, 0, -8.74228e-09, 0.2, 0, -0.2, -8.74228e-09, 0, 0, 0)

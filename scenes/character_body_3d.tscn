@@ -1,0 +1,23 @@
+[gd_scene load_steps=3 format=3 uid="uid://cm6f64qc5l5bm"]
+
+[ext_resource type="Script" path="res://src/CharacterBody3D.gd" id="1_y5ieu"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_wq5ic"]
+height = 1.6
+
+[node name="CharacterBody3D" type="CharacterBody3D"]
+collision_layer = 2
+collision_mask = 3
+axis_lock_angular_x = true
+axis_lock_angular_y = true
+axis_lock_angular_z = true
+script = ExtResource("1_y5ieu")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_wq5ic")
+
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="."]
+height = 1.6
+
+[node name="StaminaRegainDelay" type="Timer" parent="."]
+one_shot = true
