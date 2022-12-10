@@ -3,7 +3,8 @@ extends Control
 @onready @export var inventory:Node = get_viewport().get_camera_3d().inventory
 
 @onready var items = null
-@onready var slots = $Slots
+@onready var slots = $VBox/Slots
+@onready var item_name = $VBox/ItemName
 
 
 func _ready():
@@ -29,6 +30,10 @@ func _on_select_change(item):
 	print(slots.get_children())
 	for slot in slots.get_children():
 		slot.selected = slot.reference == item
+		if item != null:
+			item_name.text = item.item_name
+		else: item_name.text = ''
+		
 
 
 func _on_item_exited(item):

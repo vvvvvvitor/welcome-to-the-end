@@ -1,4 +1,5 @@
 extends CharacterBody3D
+class_name Player
 
 @export @onready var camera:Camera3D = get_viewport().get_camera_3d()
 
@@ -50,7 +51,7 @@ func _input(event):
 
 func _physics_process(delta):
 	var input_vector:Vector2 = Vector2(Input.get_axis("move_left", 'move_right'), Input.get_axis("move_backwards", "move_foward"))
-	
+
 	match character_state:
 		CHARACTER_STATES.IDLE:
 			apply_friction(ground_friction, delta)

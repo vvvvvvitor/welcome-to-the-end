@@ -12,12 +12,11 @@ var reference:Item
 		selected = value
 		scale_tween.stop()
 		if selected:
-			scale_tween.tween_property(self, 'custom_minimum_size', Vector2(100, 100), 0.08).set_ease(Tween.EASE_OUT)
+			scale_tween.tween_property(self, 'custom_minimum_size', Vector2(100, 100), 0.2).set_ease(Tween.EASE_OUT)
 			scale_tween.play()
 		else:
-			scale_tween.tween_property(self, 'custom_minimum_size', Vector2(32, 32), 0.08).set_ease(Tween.EASE_IN_OUT)
+			scale_tween.tween_property(self, 'custom_minimum_size', Vector2(24, 24), 0.2).set_ease(Tween.EASE_IN_OUT)
 			scale_tween.play()
 
 func _ready():
 	picture_frame.texture = picture
-	

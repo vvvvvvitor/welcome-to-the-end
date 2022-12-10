@@ -18,6 +18,8 @@ height = 0.4206
 radius = 0.059096
 
 [node name="FlashLight" type="RigidBody3D"]
+collision_layer = 4
+collision_mask = 5
 freeze = true
 script = ExtResource("1_qxtx5")
 picture = ExtResource("2_vhkew")

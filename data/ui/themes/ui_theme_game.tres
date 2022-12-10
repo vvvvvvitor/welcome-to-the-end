@@ -1,6 +1,6 @@
 [gd_resource type="Theme" load_steps=8 format=3 uid="uid://ds037nvx55ajc"]
 
-[ext_resource type="FontFile" uid="uid://ddt6nih5ibvuh" path="res://data/ui/fonts/futura medium bt.ttf" id="1_yeilj"]
+[ext_resource type="FontFile" uid="uid://cqhllxvp5uecc" path="res://data/ui/fonts/Gotham Rounded Bold.otf" id="1_4b01e"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_j0yjb"]
 content_margin_left = 12.0
@@ -97,7 +97,7 @@ expand_margin_bottom = 5.0
 shadow_size = 3
 
 [resource]
-default_font = ExtResource("1_yeilj")
+default_font = ExtResource("1_4b01e")
 Button/styles/disabled = SubResource("StyleBoxFlat_j0yjb")
 Button/styles/focus = SubResource("StyleBoxFlat_02lti")
 Button/styles/hover = SubResource("StyleBoxFlat_yt4le")

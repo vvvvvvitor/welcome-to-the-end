@@ -1,6 +1,6 @@
-[gd_resource type="Theme" load_steps=10 format=3 uid="uid://vj5thy38tam4"]
+[gd_resource type="Theme" load_steps=11 format=3 uid="uid://vj5thy38tam4"]
 
-[ext_resource type="FontFile" uid="uid://ddt6nih5ibvuh" path="res://data/ui/fonts/futura medium bt.ttf" id="1_wl4by"]
+[ext_resource type="FontFile" uid="uid://cqhllxvp5uecc" path="res://data/ui/fonts/Gotham Rounded Bold.otf" id="1_8goyx"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_j0yjb"]
 content_margin_left = 12.0
@@ -102,6 +102,22 @@ corner_radius_bottom_left = 8
 shadow_color = Color(0.929412, 0.196078, 0, 1)
 shadow_size = 5
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_adwvm"]
+content_margin_left = 8.0
+content_margin_top = 5.0
+content_margin_right = 8.0
+content_margin_bottom = 4.0
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+shadow_size = 8
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fa0av"]
 bg_color = Color(0, 0, 0, 1)
 border_width_left = 1
@@ -119,7 +135,7 @@ expand_margin_bottom = 5.0
 shadow_size = 3
 
 [resource]
-default_font = ExtResource("1_wl4by")
+default_font = ExtResource("1_8goyx")
 Button/styles/disabled = SubResource("StyleBoxFlat_j0yjb")
 Button/styles/focus = SubResource("StyleBoxFlat_02lti")
 Button/styles/hover = SubResource("StyleBoxFlat_yt4le")
@@ -128,4 +144,5 @@ Button/styles/pressed = SubResource("StyleBoxFlat_tcsyo")
 Panel/styles/panel = SubResource("StyleBoxFlat_is237")
 ProgressBar/styles/background = SubResource("StyleBoxFlat_4g8ig")
 ProgressBar/styles/fill = SubResource("StyleBoxFlat_wvhje")
+TooltipPanel/styles/panel = SubResource("StyleBoxFlat_adwvm")
 Window/styles/embedded_border = SubResource("StyleBoxFlat_fa0av")

@@ -1,7 +1,8 @@
-[gd_scene load_steps=11 format=3 uid="uid://bn66drd2voimx"]
+[gd_scene load_steps=12 format=3 uid="uid://bn66drd2voimx"]
 
 [ext_resource type="Theme" uid="uid://ds037nvx55ajc" path="res://data/ui/themes/ui_theme_game.tres" id="1_8gug3"]
 [ext_resource type="Theme" uid="uid://vj5thy38tam4" path="res://data/ui/themes/ui_theme_menu.tres" id="1_cdrt2"]
+[ext_resource type="Script" path="res://src/Pointer.gd" id="1_oad7b"]
 [ext_resource type="Script" path="res://src/SettingsButton.gd" id="2_ofw53"]
 [ext_resource type="Script" path="res://src/QuitButton.gd" id="3_kgn4o"]
 [ext_resource type="PackedScene" uid="uid://br6qrkoy8ujae" path="res://scenes/inventory_ui.tscn" id="3_khgnn"]
@@ -9,7 +10,7 @@
 [ext_resource type="Script" path="res://src/ResumeButton.gd" id="5_jk0fh"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6yc32"]
-bg_color = Color(0.635294, 0.0313726, 0, 1)
+bg_color = Color(0.878431, 0.270588, 0.345098, 1)
 border_width_left = 1
 border_width_top = 1
 border_width_right = 1
@@ -81,14 +82,14 @@ offset_top = 11.0
 offset_right = 1141.0
 offset_bottom = 150.0
 
-[node name="Panel" type="Panel" parent="Game/TopBar/HBoxContainer"]
+[node name="PlayerStatus" type="Panel" parent="Game/TopBar/HBoxContainer"]
 custom_minimum_size = Vector2(200, 0)
 offset_left = 930.0
 offset_right = 1130.0
 offset_bottom = 139.0
 size_flags_horizontal = 10
 
-[node name="MarginContainer" type="MarginContainer" parent="Game/TopBar/HBoxContainer/Panel"]
+[node name="MarginContainer" type="MarginContainer" parent="Game/TopBar/HBoxContainer/PlayerStatus"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -99,7 +100,7 @@ theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 
-[node name="Health" type="ProgressBar" parent="Game/TopBar/HBoxContainer/Panel/MarginContainer"]
+[node name="Health" type="ProgressBar" parent="Game/TopBar/HBoxContainer/PlayerStatus/MarginContainer"]
 offset_left = 5.0
 offset_top = 5.0
 offset_right = 195.0
@@ -108,23 +109,27 @@ size_flags_vertical = 1
 theme_override_styles/fill = SubResource("StyleBoxFlat_6yc32")
 value = 100.0
 
-[node name="Stamina" type="ProgressBar" parent="Game/TopBar/HBoxContainer/Panel/MarginContainer"]
+[node name="Stamina" type="ProgressBar" parent="Game/TopBar/HBoxContainer/PlayerStatus/MarginContainer"]
 offset_left = 5.0
-offset_top = 110.0
+offset_top = 113.0
 offset_right = 195.0
 offset_bottom = 134.0
 size_flags_vertical = 8
 theme_override_styles/fill = SubResource("StyleBoxFlat_a4kx5")
 value = 100.0
 
-[node name="Inventory" parent="Game/TopBar" instance=ExtResource("3_khgnn")]
-anchors_preset = 0
-anchor_right = 0.0
-anchor_bottom = 0.0
+[node name="BoxContainer" type="BoxContainer" parent="Game/TopBar"]
 offset_left = 11.0
 offset_top = 11.0
 offset_right = 1141.0
 offset_bottom = 150.0
+
+[node name="Inventory" parent="Game/TopBar/BoxContainer" instance=ExtResource("3_khgnn")]
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_right = 1130.0
+offset_bottom = 139.0
 
 [node name="Pointer" type="CenterContainer" parent="Game"]
 anchors_preset = 15
@@ -132,6 +137,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_oad7b")
 
 [node name="Cursor" type="MarginContainer" parent="Game/Pointer"]
 custom_minimum_size = Vector2(22, 22)
@@ -144,6 +150,12 @@ offset_bottom = 335.0
 offset_right = 22.0
 offset_bottom = 22.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_spbur")
+
+[node name="ItemName" type="Label" parent="Game/Pointer"]
+offset_left = 575.0
+offset_top = 315.0
+offset_right = 576.0
+offset_bottom = 332.0
 
 [node name="Menu" type="ReferenceRect" parent="."]
 visible = false
@@ -186,6 +198,7 @@ offset_right = 1149.0
 offset_bottom = 37.0
 
 [node name="ResumeButton" type="Button" parent="Menu/Panel/MarginContainer/HBoxContainer"]
+tooltip_text = "Resume"
 text = "Resume"
 script = ExtResource("5_jk0fh")
 

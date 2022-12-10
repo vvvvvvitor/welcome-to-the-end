@@ -8,7 +8,6 @@ transparent_bg = true
 title = "Settings"
 size = Vector2i(400, 400)
 transparent = true
-min_size = Vector2i(200, 200)
 script = ExtResource("1_ogujs")
 
 [node name="BoxContainer" type="BoxContainer" parent="."]

@@ -1,0 +1,121 @@
+[gd_scene load_steps=17 format=3 uid="uid://qk0xhhjv7se1"]
+
+[ext_resource type="PackedScene" uid="uid://cm6f64qc5l5bm" path="res://scenes/character_body_3d.tscn" id="1_u72i3"]
+[ext_resource type="PackedScene" uid="uid://bn66drd2voimx" path="res://scenes/ui.tscn" id="2_bu0hi"]
+[ext_resource type="PackedScene" uid="uid://cluewxnoh5id2" path="res://scenes/camera_3d.tscn" id="3_oeock"]
+[ext_resource type="PackedScene" uid="uid://blj2kci2j5vun" path="res://scenes/inventory.tscn" id="4_qhqvo"]
+[ext_resource type="PackedScene" uid="uid://ctlp20e53uro8" path="res://scenes/items/flash_light.tscn" id="5_ub6s7"]
+[ext_resource type="Script" path="res://src/energy_drink.gd" id="6_aa7rm"]
+[ext_resource type="PackedScene" uid="uid://dj7gmmjq743pe" path="res://scenes/items/energy_bar.tscn" id="6_ygudx"]
+[ext_resource type="Script" path="res://src/GameInfo.gd" id="7_l1f7f"]
+[ext_resource type="Theme" uid="uid://vj5thy38tam4" path="res://data/ui/themes/ui_theme_menu.tres" id="8_o7o68"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_c5kdp"]
+size = Vector2(32, 32)
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_f5ddd"]
+
+[sub_resource type="Sky" id="Sky_fxuho"]
+sky_material = SubResource("ProceduralSkyMaterial_f5ddd")
+
+[sub_resource type="Environment" id="Environment_iv3ik"]
+background_mode = 2
+sky = SubResource("Sky_fxuho")
+
+[sub_resource type="LabelSettings" id="LabelSettings_i2nn7"]
+outline_size = 10
+outline_color = Color(0, 0, 0, 1)
+shadow_size = 10
+shadow_color = Color(1, 1, 1, 1)
+shadow_offset = Vector2(1, 3.391)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_a43lv"]
+size = Vector3(1000, 1, 1000)
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_pa8jc"]
+
+[node name="debug-room" type="Node3D"]
+
+[node name="GroundPlane" type="CSGMesh3D" parent="."]
+mesh = SubResource("PlaneMesh_c5kdp")
+
+[node name="CharacterBody3D" parent="." node_paths=PackedStringArray("camera") instance=ExtResource("1_u72i3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+camera = NodePath("Camera3D")
+
+[node name="Camera3D" parent="CharacterBody3D" node_paths=PackedStringArray("target", "inventory") instance=ExtResource("3_oeock")]
+target = NodePath("..")
+inventory = NodePath("../Inventory")
+
+[node name="UI" parent="CharacterBody3D/Camera3D" instance=ExtResource("2_bu0hi")]
+
+[node name="Inventory" parent="CharacterBody3D" instance=ExtResource("4_qhqvo")]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." groups=["env"]]
+environment = SubResource("Environment_iv3ik")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="WorldEnvironment"]
+transform = Transform3D(0.845747, -0.23566, 0.478724, -0.297205, 0.537071, 0.789445, -0.44315, -0.80995, 0.384187, 0, 5.93797, 0)
+shadow_enabled = true
+
+[node name="FlashLight" parent="." instance=ExtResource("5_ub6s7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.52776, 0.924342, -3.98165)
+collision_mask = 1
+dropped = true
+
+[node name="EnergyBar" parent="." instance=ExtResource("6_ygudx")]
+
+[node name="GameInfo" type="Node" parent="."]
+script = ExtResource("7_l1f7f")
+
+[node name="UI" type="Control" parent="GameInfo"]
+layout_mode = 3
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -94.0
+grow_horizontal = 2
+grow_vertical = 0
+mouse_filter = 1
+
+[node name="Box" type="BoxContainer" parent="GameInfo/UI"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Margin" type="MarginContainer" parent="GameInfo/UI/Box"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 100
+theme_override_constants/margin_right = 100
+
+[node name="CommitInfo" type="Label" parent="GameInfo/UI/Box/Margin"]
+layout_mode = 2
+size_flags_vertical = 1
+mouse_filter = 1
+theme = ExtResource("8_o7o68")
+text = "Commit"
+label_settings = SubResource("LabelSettings_i2nn7")
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+shape = SubResource("BoxShape3D_a43lv")
+
+[node name="Item" type="RigidBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 3)
+collision_layer = 4
+script = ExtResource("6_aa7rm")
+dropped = true
+
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="Item"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Item"]
+shape = SubResource("CylinderShape3D_pa8jc")

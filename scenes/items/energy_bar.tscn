@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://dj7gmmjq743pe"]
+
+[ext_resource type="Script" path="res://src/energy_bar.gd" id="1_4bsbd"]
+[ext_resource type="Texture2D" uid="uid://65p4vgdau5u6" path="res://icon.svg" id="2_khk23"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_kle8r"]
+
+[node name="EnergyBar" type="RigidBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.75392, 1.07214, 0)
+collision_layer = 4
+script = ExtResource("1_4bsbd")
+picture = ExtResource("2_khk23")
+dropped = true
+
+[node name="CSGBox3D" type="CSGBox3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_kle8r")

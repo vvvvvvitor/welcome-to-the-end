@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://dkub38qm65cq0"]
+[gd_scene load_steps=15 format=3 uid="uid://dkub38qm65cq0"]
 
 [ext_resource type="PackedScene" uid="uid://cm6f64qc5l5bm" path="res://scenes/character_body_3d.tscn" id="1_wss4s"]
 [ext_resource type="PackedScene" uid="uid://cluewxnoh5id2" path="res://scenes/camera_3d.tscn" id="2_ukqcr"]
@@ -8,11 +8,29 @@
 [ext_resource type="PackedScene" uid="uid://c7fk4ermuteb3" path="res://scenes/rooms/level_1/room_2_way.tscn" id="5_ootqp"]
 [ext_resource type="PackedScene" uid="uid://b0nqu3nqpee76" path="res://scenes/rooms/level_1/room_4_way.tscn" id="5_vtpks"]
 [ext_resource type="PackedScene" uid="uid://cp3xey3ndmpek" path="res://scenes/rooms/level_1/room_1_way.tscn" id="6_ko1ep"]
-[ext_resource type="PackedScene" uid="uid://ctlp20e53uro8" path="res://scenes/flash_light.tscn" id="9_mcycl"]
 [ext_resource type="Script" path="res://src/GameInfo.gd" id="10_rf6wl"]
+[ext_resource type="PackedScene" uid="uid://ctlp20e53uro8" path="res://scenes/items/flash_light.tscn" id="11_h0e5l"]
+[ext_resource type="Theme" uid="uid://vj5thy38tam4" path="res://data/ui/themes/ui_theme_menu.tres" id="11_mbrl2"]
 
 [sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_xqkdl"]
 data = PackedVector3Array(50, 0, 50, -50, 0, 50, 50, 0, -50, -50, 0, 50, -50, 0, -50, 50, 0, -50)
+
+[sub_resource type="LabelSettings" id="LabelSettings_u6k0k"]
+outline_size = 10
+outline_color = Color(0.0745098, 0.752941, 1, 1)
+shadow_size = 10
+shadow_color = Color(0.0784314, 0.521569, 0.992157, 1)
+shadow_offset = Vector2(1, 3.391)
+
+[sub_resource type="Environment" id="Environment_lv1gj"]
+background_mode = 1
+background_energy_multiplier = 0.0
+tonemap_mode = 3
+ssr_enabled = true
+ssil_enabled = true
+glow_enabled = true
+volumetric_fog_enabled = true
+volumetric_fog_albedo = Color(0, 0, 0, 1)
 
 [node name="Node3D" type="Node3D"]
 
@@ -186,12 +204,6 @@ lights = true
 transform = Transform3D(1, 0, 1.06581e-14, 0, 1, 0, -1.06581e-14, 0, 1, -12, 0, -6)
 lights = true
 
-[node name="FlashLight" parent="." instance=ExtResource("9_mcycl")]
-transform = Transform3D(0.527119, 0, -0.849791, 0, 1, 0, 0.849791, 0, 0.527119, -6.47357, 0.987119, 2.5171)
-collision_layer = 4
-toggled = true
-dropped = true
-
 [node name="StaticBody3D" type="StaticBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.2, 0)
 
@@ -200,3 +212,48 @@ shape = SubResource("ConcavePolygonShape3D_xqkdl")
 
 [node name="GameInfo" type="Node" parent="."]
 script = ExtResource("10_rf6wl")
+
+[node name="UI" type="Control" parent="GameInfo"]
+layout_mode = 3
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -94.0
+grow_horizontal = 2
+grow_vertical = 0
+mouse_filter = 1
+
+[node name="Box" type="BoxContainer" parent="GameInfo/UI"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Margin" type="MarginContainer" parent="GameInfo/UI/Box"]
+offset_right = 1152.0
+offset_bottom = 94.0
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 100
+theme_override_constants/margin_right = 100
+
+[node name="CommitInfo" type="Label" parent="GameInfo/UI/Box/Margin"]
+offset_left = 100.0
+offset_right = 1052.0
+offset_bottom = 94.0
+size_flags_vertical = 1
+mouse_filter = 1
+theme = ExtResource("11_mbrl2")
+text = "Commit"
+label_settings = SubResource("LabelSettings_u6k0k")
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." groups=["env"]]
+environment = SubResource("Environment_lv1gj")
+
+[node name="FlashLight" parent="." instance=ExtResource("11_h0e5l")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 2, 2)
+toggled = true
+dropped = true

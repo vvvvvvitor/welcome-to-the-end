@@ -8,18 +8,19 @@ extends Camera3D
 @onready var game = $UI/Game
 @onready var pick_ray = $PickRay
 
-signal can_pick_changed
-var can_pick:bool = false:
-	get: return can_pick
+signal pick_changed
+var pickable_item:Item = null:
+	get: return pickable_item
 	set(value):
-		if can_pick != value:
-			emit_signal('can_pick_changed', value)
+		if pickable_item != value:
+			emit_signal('pick_changed', value)
 		
-		can_pick = value
+		pickable_item = value
 
 @onready @export var inventory:Node
 
 func _input(event):
+	
 	if Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
 		if event is InputEventMouseMotion:
 			rotation.x -= event.relative.y * sensitivity
@@ -46,11 +47,8 @@ func _process(delta):
 	var detected = pick_ray.get_collider()
 	if detected:
 		if detected is Item:
-			can_pick = true
-			if Input.is_action_just_pressed("action_secondary"):
-				detected.get_parent().remove_child(detected)
-				inventory.items.add_child(detected)
-				detected.dropped = false
-				detected.position = Vector3.ZERO
-				detected.rotation = Vector3.ZERO
-	else: can_pick = false
+			if detected.dropped:
+				pickable_item = detected
+				if Input.is_action_just_pressed("action_secondary"):
+					inventory.add_item(detected)
+	else: pickable_item = null

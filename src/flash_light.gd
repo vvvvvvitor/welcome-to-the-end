@@ -8,19 +8,19 @@ extends Item
 @onready var point_light = $PointLight
 
 func _ready():
+	item_name = 'Flashlight'
 	if toggled:
 		point_light.light_energy = turned_on_energy
 	else: point_light.light_energy = 0
+	
+	item_used.connect(_on_item_use)
 
-func _input(event):
+func _on_item_use():
 	if Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
-		if event is InputEvent:
-			if !dropped:
-				if event.is_action_released("action_main"):
-					if toggle_timer.is_stopped():
-						toggled = !toggled
-						toggle(energy_burst, !toggled)
-						toggle_timer.start()
+		if toggle_timer.is_stopped():
+			toggled = !toggled
+			toggle(energy_burst, !toggled)
+			toggle_timer.start()
 
 func toggle(flash_value, reverse_bool:bool = false) -> void:
 	point_light.light_energy = flash_value
