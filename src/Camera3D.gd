@@ -14,24 +14,24 @@ var pickable_item:Item = null:
 	set(value):
 		if pickable_item != value:
 			emit_signal('pick_changed', value)
-		
+
 		pickable_item = value
 
-@onready @export var inventory:Node
+@export var inventory:Node
 
 func _input(event):
-	
+
 	if Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
 		if event is InputEventMouseMotion:
 			rotation.x -= event.relative.y * sensitivity
 			rotation.y -= event.relative.x * sensitivity
 			rotation.x = clamp(rotation.x, (-PI / 2) * 0.9, (PI / 2) * 0.9)
-			
+
 	if event is InputEvent:
 		if event.is_action_pressed('menu_back'):
 			if Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
 				Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
-			elif Input.mouse_mode == Input.MOUSE_MODE_VISIBLE: 
+			elif Input.mouse_mode == Input.MOUSE_MODE_VISIBLE:
 				Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
 			menu.visible = Input.mouse_mode != Input.MOUSE_MODE_CAPTURED
@@ -43,7 +43,7 @@ func _ready():
 func _process(delta):
 	position = target.position + Vector3(0, target.scale.y * 0.5, 0)
 
-	
+
 	var detected = pick_ray.get_collider()
 	if detected:
 		if detected is Item:

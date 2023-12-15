@@ -12,7 +12,7 @@ func _ready():
 	if toggled:
 		point_light.light_energy = turned_on_energy
 	else: point_light.light_energy = 0
-	
+
 	item_used.connect(_on_item_use)
 
 func _on_item_use():

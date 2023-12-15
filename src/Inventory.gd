@@ -17,7 +17,7 @@ var selected_item:Item:
 	get: return selected_item
 	set(value):
 		selected_item = value
-		
+
 		for item in items.get_children():
 			item.visible = item == selected_item
 			item.set_process(item == selected_item)
@@ -25,7 +25,7 @@ var selected_item:Item:
 
 		emit_signal('selected_changed', selected_item)
 
-		
+
 func _ready():
 	items.child_entered_tree.connect(_on_child_enter)
 	selected_changed.connect(_on_select_change)
@@ -47,7 +47,7 @@ func _unhandled_input(event):
 		if selected_item != null:
 			drop_item(selected_item, -get_viewport().get_camera_3d().basis.z)
 			selected_item = null
-				
+
 
 func drop_item(item, direction):
 	if !wall_ray.is_colliding():
@@ -72,7 +72,7 @@ func add_item(item):
 
 func _on_child_enter(node):
 	selected_item = node
-	
+
 
 func _on_select_change(item):
 	if item:

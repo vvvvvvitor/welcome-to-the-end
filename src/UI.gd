@@ -1,6 +1,6 @@
 extends Control
 
-@onready @export var inventory:Node = get_viewport().get_camera_3d().inventory
+@onready var inventory:Node = get_viewport().get_camera_3d().inventory
 
 @onready var items = null
 @onready var slots = $VBox/Slots
@@ -10,9 +10,9 @@ extends Control
 func _ready():
 	inventory = get_viewport().get_camera_3d().inventory
 	items = inventory.get_node('Items').get_node('Offset')
-	
+
 	make_slots()
-	
+
 	inventory.selected_changed.connect(_on_select_change)
 	items.child_exiting_tree.connect(_on_item_exited)
 	items.child_entered_tree.connect(_on_item_entered)
@@ -33,7 +33,7 @@ func _on_select_change(item):
 		if item != null:
 			item_name.text = item.item_name
 		else: item_name.text = ''
-		
+
 
 
 func _on_item_exited(item):
@@ -45,8 +45,8 @@ func _on_item_exited(item):
 func _on_item_entered(item):
 	for slot in slots.get_children():
 		slot.queue_free()
-	
+
 	make_slots()
-	
+
 	for slot in slots.get_children():
 		slot.selected = slot.reference == item

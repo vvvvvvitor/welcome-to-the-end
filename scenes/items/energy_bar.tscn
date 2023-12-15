@@ -1,18 +1,22 @@
-[gd_scene load_steps=4 format=3 uid="uid://dj7gmmjq743pe"]
+[gd_scene load_steps=5 format=3 uid="uid://dj7gmmjq743pe"]
 
 [ext_resource type="Script" path="res://src/energy_bar.gd" id="1_4bsbd"]
-[ext_resource type="Texture2D" uid="uid://65p4vgdau5u6" path="res://icon.svg" id="2_khk23"]
+[ext_resource type="Texture2D" uid="uid://i5gl4mnpc6k2" path="res://data/textures/energy_bar_icon.png" id="2_1vheu"]
+[ext_resource type="PackedScene" uid="uid://dsbx5dhhq4kuq" path="res://data/models/items/energy_bar.glb" id="3_12m10"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_kle8r"]
+size = Vector3(0.359369, 0.134842, 0.167214)
 
 [node name="EnergyBar" type="RigidBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.75392, 1.07214, 0)
 collision_layer = 4
 script = ExtResource("1_4bsbd")
-picture = ExtResource("2_khk23")
+picture = ExtResource("2_1vheu")
 dropped = true
 
-[node name="CSGBox3D" type="CSGBox3D" parent="."]
+[node name="energy_bar" parent="." instance=ExtResource("3_12m10")]
+transform = Transform3D(0.0953387, 0.0505794, -0.168381, -0.0937309, 0.176676, -5.2423e-09, 0.148745, 0.0789127, 0.107925, 0, 0, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(0.47862, 0.256365, -0.839762, -0.472166, 0.88151, -2.4157e-08, 0.740258, 0.396507, 0.542955, -0.101467, 0.103375, -0.168496)
 shape = SubResource("BoxShape3D_kle8r")

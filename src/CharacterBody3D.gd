@@ -1,7 +1,7 @@
 extends CharacterBody3D
 class_name Player
 
-@export @onready var camera:Camera3D = get_viewport().get_camera_3d()
+@onready var camera:Camera3D = get_viewport().get_camera_3d()
 
 @export var max_stamina:int = 100
 var stamina:float = max_stamina:
@@ -55,64 +55,64 @@ func _physics_process(delta):
 	match character_state:
 		CHARACTER_STATES.IDLE:
 			apply_friction(ground_friction, delta)
-			
+
 			if input_vector.length() != 0:
 				character_state = CHARACTER_STATES.MOVING
-				
+
 			if !is_on_floor():
 				character_state = CHARACTER_STATES.FALLING
-		
+
 			if stamina_regain_delay.is_stopped():
 				stamina_regain_delay.start()
 				stamina += 10
-		
+
 		CHARACTER_STATES.MOVING:
 			match movement_state:
 				MOVEMENT_STATES.WALKING:
 					apply_friction(ground_friction, delta)
 					move(input_vector, ground_speed, delta)
-					
+
 					if stamina != 0:
 						if Input.is_action_just_pressed("action_run"):
 							movement_state = MOVEMENT_STATES.RUNNING
 				MOVEMENT_STATES.RUNNING:
 					apply_friction(ground_friction, delta)
 					move(input_vector, ground_running_speed, delta)
-					
+
 					stamina -= stamina_depletion * delta
-					
+
 					if Input.is_action_just_released("action_run") || stamina == 0:
 						movement_state = MOVEMENT_STATES.WALKING
-					
+
 			if input_vector.length() == 0:
 				character_state = CHARACTER_STATES.IDLE
 				movement_state = MOVEMENT_STATES.WALKING
-				
+
 			if !is_on_floor():
 				character_state = CHARACTER_STATES.FALLING
 				movement_state = MOVEMENT_STATES.WALKING
-				
+
 		CHARACTER_STATES.JUMPING:
 			apply_friction(air_friction, delta)
 			velocity.y -= gravity
-			
+
 			if velocity.y < 0:
 				character_state = CHARACTER_STATES.FALLING
-				
+
 		CHARACTER_STATES.FALLING:
 			apply_friction(air_friction, delta)
 			velocity.y -= gravity
-			
+
 			if is_on_floor():
 				character_state = CHARACTER_STATES.MOVING
-	
+
 	move_and_slide()
 
 func move(input_vector:Vector2, speed:float, delta) -> void:
 	var dir:Vector3 = Vector3((camera.basis.x.x * input_vector.x) + (-camera.basis.z.x * input_vector.y), 0, (-camera.basis.z.z * input_vector.y) + (camera.basis.x.z * input_vector.x))
-	
+
 	velocity += dir.normalized() * speed * delta
-	
+
 func apply_friction(friction:float, delta) -> void:
 	velocity.x -= velocity.x * friction * delta
 	velocity.z -= velocity.z * friction * delta

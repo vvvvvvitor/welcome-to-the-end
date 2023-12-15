@@ -39,13 +39,12 @@ size = Vector3(1000, 1, 1000)
 [node name="GroundPlane" type="CSGMesh3D" parent="."]
 mesh = SubResource("PlaneMesh_c5kdp")
 
-[node name="CharacterBody3D" parent="." node_paths=PackedStringArray("camera") instance=ExtResource("1_u72i3")]
+[node name="CharacterBody3D" parent="." instance=ExtResource("1_u72i3")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
-camera = NodePath("Camera3D")
 
 [node name="Camera3D" parent="CharacterBody3D" node_paths=PackedStringArray("target", "inventory") instance=ExtResource("3_oeock")]
-target = NodePath("..")
-inventory = NodePath("../Inventory")
+target = NodePath("")
+inventory = NodePath("")
 
 [node name="UI" parent="CharacterBody3D/Camera3D" instance=ExtResource("2_bu0hi")]
 
